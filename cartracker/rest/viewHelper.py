@@ -1,16 +1,13 @@
 
 from django.shortcuts import render
+from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate
 
 from rest_framework.response import Response
 from rest_framework.decorators import permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
-
 from rest_framework import status
-
-from django.contrib.auth.models import User, Group
-from django.contrib.auth import authenticate
-
 from rest_framework.authtoken.models import Token
 
 from rest_framework.status import (
@@ -34,6 +31,7 @@ def createUser(username, password):
     token, _= Token.objects.get_or_create(user = user)
     
     return Response({'token': token.key}, status = HTTP_200_OK)
+    
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((AllowAny,))
 def login(username, password):

@@ -1,20 +1,19 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User, Group
-
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework import status
-
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
-from django.contrib.auth import authenticate
+
 from .models import UserStatus, GPSCoordinates
 from .viewHelper import createUser, login, validateUser
 
@@ -66,7 +65,6 @@ def UserStatusView(request):
         userstatus.status = user_status
         userstatus.save()
         return Response("Ok", status = status.HTTP_200_OK)
-
 
 @csrf_exempt
 @api_view(['POST'])
