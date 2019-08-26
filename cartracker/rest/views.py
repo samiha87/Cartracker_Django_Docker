@@ -8,13 +8,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
     HTTP_200_OK
 )
 
-csrf_exempt
+@csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def CreateUser(request):
@@ -37,7 +41,7 @@ def CreateUser(request):
     
     return Response({'token': token.key}, status = HTTP_200_OK)
 
-    @csrf_exempt
+@csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def UserLogin(request):
@@ -73,8 +77,8 @@ def UserStatusView(request):
         userstatus.save()
         return Response("Ok", status = status.HTTP_200_OK)
 
-        @csrf_exempt
 
+@csrf_exempt
 @api_view(['POST'])
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
