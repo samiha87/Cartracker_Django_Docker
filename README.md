@@ -16,6 +16,10 @@ Unnecessary processes such as:
 
 Server is hosted on AWS EC2 instance.
 
+## Test log
+    600W inverter is powerfull enough to start projector.
+    600W inverter is not powerfull enough to start car fridge -> need seperate inverter for fridge
+    
 ## References
 1. https://docs.docker.com/compose/django/
 2. https://www.django-rest-framework.org/tutorial/quickstart/
