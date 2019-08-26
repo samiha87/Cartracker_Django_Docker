@@ -56,10 +56,7 @@ def UserStatusView(request):
     if request.method == 'POST':
         user_status = request.data['status']
         user = request.user.username
-        print("UserStatusView, POST ",  user) 
-        print("UserStatusView, POST", request.data)
         userstatus = UserStatus.objects.filter(username=user).first()
-
         userstatus.status = user_status
         userstatus.save()
         return Response("Ok", status = status.HTTP_200_OK)
@@ -70,14 +67,9 @@ def UserStatusView(request):
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def CoordinatesView(request):
-    print(request.user.username + " UpdateCoordinates")
     if request.method == 'POST':
         userstatus = UserStatus.objects.filter(username = request.user.username).first()
-        #Validate
-        print("UpdateCoordinates ", request.user.username)
-        print("UpdateCoordinates ", request.data)
         if request.data.get('longitude') and request.data.get('latitude') and request.data.get('altitude'):
-           # print("valid")
             coordinates = GPSCoordinates.objects.create(userstatus_gps = userstatus)
             coordinates.longitude = request.data.get('longitude')
             coordinates.latitude = request.data.get('latitude')
