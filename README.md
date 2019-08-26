@@ -10,9 +10,9 @@ This will shut down connection to main battery when car is not running.
 
 Knowing battery voltage is essential. When battery voltage goes under 12.3V microcontroller will tell raspberry pi to shutdown projector. Once projector is shutdown, raspberry pi will turn it self off and microconroller turns of all unnecessary processes. 
 Unnecessary processes such as:
-- GPRS, SMS needs to stay on to report position if car moves
-- Bluetooth
-- More.. once projec goes forward
+- GPRS. !SMS needs to stay on to report position if car moves
+- Bluetooth.
+- More.. once projec goes forward.
 
 Server is hosted on AWS EC2 instance.
 
