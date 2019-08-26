@@ -8,8 +8,9 @@ Microcontroller keeps track of 2 leisure batteries from analong pin. These batte
 When car charges main battery, also leisure batteries are being charged. One relay is required between main and leisure batteries.
 This will shut down connection to main battery when car is not running.
 
-Knowing battery voltage is essential. When battery voltage goes under 12.3V microcontroller will tell raspberry pi to shutdown projector. Once projector is shutdown, raspberry pi will turn it self off and microconroller turns of all unnecessary processes. 
-Unnecessary processes such as:
+Knowing battery voltage is essential. When battery voltage goes under 12.3V microcontroller will tell raspberry pi to shutdown projector. Once projector is shutdown, raspberry pi will turn it self off and microconroller turns of all unnecessary processes. If projector is terminated while lamp is warm/projecting, this can cause permanent damage to lamp. Lamp neads to be cooled down in controlled manner.
+
+### Low power mode, shut following:
 - GPRS. !SMS needs to stay on to report position if car moves
 - Bluetooth.
 - More.. once projec goes forward.
@@ -18,8 +19,8 @@ Server is hosted on AWS EC2 instance.
 
 ## Test log
     600W inverter is powerfull enough to start projector.
-    600W inverter is not powerfull enough to start car fridge -> need seperate inverter for fridge
-    
+    600W inverter is not powerfull enough to start car fridge -> need seperate and more powerfull inverter for fridge
+
 ## References
 1. https://docs.docker.com/compose/django/
 2. https://www.django-rest-framework.org/tutorial/quickstart/
