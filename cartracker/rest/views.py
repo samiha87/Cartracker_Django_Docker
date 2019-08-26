@@ -16,7 +16,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from django.contrib.auth import authenticate
 from .models import UserStatus, GPSCoordinates
-from .viewHelper import createUser
+from .viewHelper import createUser, login, validateUser
 
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -30,26 +30,22 @@ from rest_framework.status import (
 def CreateUserView(request):
     username = request.data.get("username")
     password = request.data.get("password")
-    createUser(username, password)
-    return createUser(username, password)
-
+    output = validateUser(username, password)
+    if output is True:
+        createUser(username, password)
+        return createUser(username, password)
+    return output
+    
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def LoginView(request):
     username = request.data.get("username")
     password = request.data.get("password")
-
-    if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'},
-                status = HTTP_400_BAD_REQUEST)
-
-    user = authenticate(username = username, password = password)
-    if not user:
-        return Response({'token': 'Failed'}, status = status.HTTP_400_BAD_REQUEST)
-    token, _= Token.objects.get_or_create(user = user)
-    print("Views::UserLogin() return response: ", token)
-    return Response({'token': token.key}, status = HTTP_200_OK)
+    output = validateUser(username, password)
+    if output is True :
+        return login(username, password)
+    return output
 
 @csrf_exempt
 @api_view(['POST'])
@@ -63,7 +59,6 @@ def UserStatusView(request):
         print("UserStatusView, POST ",  user) 
         print("UserStatusView, POST", request.data)
         userstatus = UserStatus.objects.filter(username=user).first()
-        #serializer = PostUserStatusSerializer(data = request.data)
 
         userstatus.status = user_status
         userstatus.save()
