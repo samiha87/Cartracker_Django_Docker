@@ -67,7 +67,7 @@ def UserStatusView(request):
         return Response("Ok", status = status.HTTP_200_OK)
 
 @csrf_exempt
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
 def CoordinatesView(request):
@@ -79,7 +79,14 @@ def CoordinatesView(request):
             coordinates.latitude = request.data.get('latitude')
             coordinates.altitude = request.data.get('altitude')
             coordinates.save()
-            return Response(userstatus.location, status = status.HTTP_201_CREATED)
-        else:
-            return Response("Check your json", status = status.HTTP_400_BAD_REQUEST)
+            return Response("Ok", status = status.HTTP_201_CREATED)
+        
+        return Response("Check your json", status = status.HTTP_400_BAD_REQUEST)
+    
+    # Request latest coordinates
+    if request.method == 'GET':
+        userstatus = UserStatus.objects.filter(username=request.user.username).first()
+        query = {}
+        queryList = []
+       
 

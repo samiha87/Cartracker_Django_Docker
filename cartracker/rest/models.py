@@ -14,7 +14,6 @@ def create_auth_token(sender, instance = None, created = False, **kwargs):
 
 class UserStatus(models.Model):
     username = models.CharField(unique = True, max_length = 200)
-    location = models.CharField(max_length = 200)
     timestamp = models.DateTimeField(null = True, auto_now_add = True)
     status = models.CharField(null = True, max_length = 200)
     class Meta:
@@ -25,7 +24,7 @@ class GPSCoordinates(models.Model):
     longitude = models.FloatField(default=0.0)
     latitude = models.FloatField(default=0.0)
     altitude = models.FloatField(default=0.0)
-    timestamp = models.DateTimeField(null = True, auto_now_add = True)
+    timestamp = models.DateTimeField(null = False, auto_now_add = True)
     class Meta:
         get_latest_by = "timestamp"
      # This table contains whom being followd by user and who are following
