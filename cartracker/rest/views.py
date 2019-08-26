@@ -73,25 +73,26 @@ def UserStatusView(request):
 def CoordinatesView(request):
     if request.method == 'POST':
         userstatus = UserStatus.objects.filter(username = request.user.username).first()
-        if request.data.get('longitude') and request.data.get('latitude') and request.data.get('altitude'):
-            coordinates = GPSCoordinates.objects.create(userstatus_gps = userstatus)
-            coordinates.longitude = request.data.get('longitude')
-            coordinates.latitude = request.data.get('latitude')
-            coordinates.altitude = request.data.get('altitude')
-            coordinates.save()
-            return Response("Ok", status = status.HTTP_201_CREATED)
-        
+        if userstatus:
+            if request.data.get('longitude') and request.data.get('latitude') and request.data.get('altitude'):
+                coordinates = GPSCoordinates.objects.create(userstatus_gps = userstatus)
+                coordinates.longitude = request.data.get('longitude')
+                coordinates.latitude = request.data.get('latitude')
+                coordinates.altitude = request.data.get('altitude')
+                coordinates.save()
+                return Response("Ok", status = status.HTTP_201_CREATED)
         return Response("Check your json", status = status.HTTP_400_BAD_REQUEST)
     
     # Request latest coordinates
     if request.method == 'GET':
+        print(UserStatus.objects.all())
         userstatus = UserStatus.objects.filter(username=request.user.username).first()
         query = {}
         queryList = []
         if userstatus:
             # find user coordinates
             return getCoordinates(userstatus)
-        return Response("Something went wrong", status = status.HTTP_400_BAD_REQUEST)
+        return Response("Something went wrong, no user", status = status.HTTP_400_BAD_REQUEST)
             
         
                 

@@ -9,7 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from .models import GPSCoordinates
+from .models import GPSCoordinates, UserStatus
 
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -27,11 +27,19 @@ def createUser(username, password):
         #Create userstatus 
         userstatus = UserStatus.objects.create()
         userstatus.username = username
-        userstatus.location = "unknown"
         userstatus.save()
-    token, _= Token.objects.get_or_create(user = user)
-    
-    return Response({'token': token.key}, status = HTTP_200_OK)
+        token, _= Token.objects.get_or_create(user = user)
+        return Response({'token': token.key}, status = HTTP_200_OK)
+    if user:
+        # If user exist check that userstatus model exist
+        userstatus = UserStatus.objects.filter(username = user).first()
+        # If userstatus model doesn't exist create one
+        if not userstatus:
+            userstatus = UserStatus.objects.create()
+            userstatus.username = username
+            userstatus.save()
+
+    return Response("User exist", status = status.HTTP_400_BAD_REQUEST)
     
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((AllowAny,))
@@ -57,4 +65,4 @@ def getCoordinates(userstatus):
             # Create response
             content = {'latitude':coordinates.latitude, 'longitude': coordinates.longitude, 'altitude': coordinates.altitude}
             return Response(content, status = status.HTTP_200_OK)
-    return Response("Something went wrong", status = status.HTTP_400_BAD_REQUEST)
+    return Response("Something went wrong, couldn't find coordinates", status = status.HTTP_400_BAD_REQUEST)
