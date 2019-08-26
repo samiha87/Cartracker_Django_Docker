@@ -19,7 +19,7 @@ from cartracker.rest import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('car/coordinates/', views.coordinates),
-    path('car/login/', views.UserLogin),
-    path('car/create/', views.CreateUser)
+    path('car/coordinates/', views.CoordinatesView),
+    path('car/login/', views.LoginView),
+    path('car/create/', views.CreateUserView)
 ]

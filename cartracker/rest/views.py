@@ -12,6 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
+
+from .models import UserStatus, GPSCoordinates
+
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
     HTTP_404_NOT_FOUND,
@@ -21,7 +24,7 @@ from rest_framework.status import (
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def CreateUser(request):
+def CreateUserView(request):
     username = request.data.get("username")
     password = request.data.get("password")
 
@@ -44,7 +47,7 @@ def CreateUser(request):
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
-def UserLogin(request):
+def LoginView(request):
     username = request.data.get("username")
     password = request.data.get("password")
 
@@ -82,7 +85,7 @@ def UserStatusView(request):
 @api_view(['POST'])
 @authentication_classes((TokenAuthentication, BasicAuthentication))
 @permission_classes((IsAuthenticated,))
-def UpdateCoordinates(request):
+def CoordinatesView(request):
     print(request.user.username + " UpdateCoordinates")
     if request.method == 'POST':
         userstatus = UserStatus.objects.filter(username = request.user.username).first()
