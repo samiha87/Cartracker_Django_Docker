@@ -29,7 +29,6 @@ ALLOWED_HOSTS = [
     '0.0.0.0'
 ]
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -96,7 +95,6 @@ DATABASES = {
         'PORT': 5432,
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

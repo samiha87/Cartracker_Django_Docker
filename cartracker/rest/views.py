@@ -25,27 +25,33 @@ from rest_framework.status import (
 )
 
 @csrf_exempt
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes((AllowAny,))
 def CreateUserView(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    output = validateUser(username, password)
-    if output is True:
-        createUser(username, password)
-        return createUser(username, password)
-    return output
+    if request.method == 'POST':
+        print("Create user")
+        username = request.data.get("username")
+        password = request.data.get("password")
+        output = validateUser(username, password)
+        if output is True:
+            return createUser(username, password)
+        return output
+    return Response("Check request method", status = status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
-@api_view(["POST"])
+@api_view(['POST'])
 @permission_classes((AllowAny,))
-def LoginView(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    output = validateUser(username, password)
-    if output is True :
-        return login(username, password)
-    return output
+def UserLoginView(request):
+    print("Login view")
+    if request.method == 'POST':
+        username = request.data.get("username")
+        password = request.data.get("password")
+        output = validateUser(username, password)
+        print(output)
+        if output is True :
+           return login(username, password)
+        return output
+    return Response("Check request method", status = status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @api_view(['POST'])

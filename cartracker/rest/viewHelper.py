@@ -41,7 +41,7 @@ def login(username, password):
     if not user:
         return Response({'token': 'Failed'}, status = status.HTTP_400_BAD_REQUEST)
     token, _= Token.objects.get_or_create(user = user)
-    Response({'token': token.key}, status = HTTP_200_OK)
+    return Response({'token': token.key}, status = HTTP_200_OK)
 
 def validateUser(username, password):
     if username is None or password is None:
