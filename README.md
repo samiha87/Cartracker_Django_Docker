@@ -1,4 +1,4 @@
-#Car tracker median
+# Car tracker median
 
 Will allow webasto on/off from mobile app. Webasto has a v-bus line, that can be connected with microcontroller.
 Embedded system with STM32, HM-10(BLE), U-box GNSS, IMU, and NEOWAY M590(SMS, GPRS) will be installed to car.
@@ -14,6 +14,8 @@ Unnecessary processes such as:
 - Bluetooth
 - More.. once projec goes forward
 
-##References
+## References
 1. https://docs.docker.com/compose/django/
 2. https://www.django-rest-framework.org/tutorial/quickstart/
+3. https://www.freertos.org/
+4. https://www.st.com/en/embedded-software/stm32-standard-peripheral-libraries.html
