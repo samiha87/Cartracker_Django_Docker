@@ -14,8 +14,11 @@ Unnecessary processes such as:
 - Bluetooth
 - More.. once projec goes forward
 
+Server is hosted on AWS EC2 instance.
+
 ## References
 1. https://docs.docker.com/compose/django/
 2. https://www.django-rest-framework.org/tutorial/quickstart/
 3. https://www.freertos.org/
 4. https://www.st.com/en/embedded-software/stm32-standard-peripheral-libraries.html
+5. https://aws.amazon.com/ec2/instance-types/
