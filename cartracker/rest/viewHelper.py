@@ -49,5 +49,12 @@ def validateUser(username, password):
     return True
 
 def getCoordinates(userstatus):
+    # Check if usestatus exist
     if userstatus:
         coordinates = GPSCoordinates.objects.filter(userstatus_gps = userstatus).first()
+        # check that coordinates exist
+        if coordinates:
+            # Create response
+            content = {'latitude':coordinates.latitude, 'longitude': coordinates.longitude, 'altitude': coordinates.altitude}
+            return Response(content, status = status.HTTP_200_OK)
+    return Response("Something went wrong", status = status.HTTP_400_BAD_REQUEST)

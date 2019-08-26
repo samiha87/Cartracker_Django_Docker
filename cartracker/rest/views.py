@@ -91,6 +91,7 @@ def CoordinatesView(request):
         if userstatus:
             # find user coordinates
             return getCoordinates(userstatus)
+        return Response("Something went wrong", status = status.HTTP_400_BAD_REQUEST)
             
         
                 
