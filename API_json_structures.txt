@@ -1,0 +1,28 @@
+### Login
+Content-type        application/json
+
+Body
+```
+{
+    "username":     <String>
+    "password":     <String> ! TODO make this more secure
+}
+```
+Success: Returns token key, 200 OK
+Failure: Return Failed, 400 Bad Request
+
+### Sending current coordinates
+Content-type        application/json
+Authorization       Token <token_key>
+
+Body
+```
+{
+    "altitude":     <float>
+    "latitude":     <float>
+    "longitude":    <float>
+    "timestamp":    <String>
+}
+```
+Success: Returns Ok, 200 OK
+Failure: Return Failed, 400 Bad Request
