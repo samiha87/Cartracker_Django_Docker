@@ -35,7 +35,7 @@ def CreateUserView(request):
         createUser(username, password)
         return createUser(username, password)
     return output
-    
+
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
@@ -83,8 +83,6 @@ def CoordinatesView(request):
             coordinates.latitude = request.data.get('latitude')
             coordinates.altitude = request.data.get('altitude')
             coordinates.save()
-            userstatus.location = getLocation(coordinates)
-            userstatus.save()
             return Response(userstatus.location, status = status.HTTP_201_CREATED)
         else:
             return Response("Check your json", status = status.HTTP_400_BAD_REQUEST)
