@@ -15,7 +15,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 
 from .models import UserStatus, GPSCoordinates
-from .viewHelper import createUser, login, validateUser
+from .viewHelper import createUser, login, validateUser, getCoordinates
 
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -88,5 +88,10 @@ def CoordinatesView(request):
         userstatus = UserStatus.objects.filter(username=request.user.username).first()
         query = {}
         queryList = []
-       
+        if userstatus:
+            # find user coordinates
+            return getCoordinates(userstatus)
+            
+        
+                
 

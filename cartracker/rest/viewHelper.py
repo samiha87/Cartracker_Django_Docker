@@ -9,6 +9,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.authentication import TokenAuthentication, BasicAuthentication
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from .models import GPSCoordinates
 
 from rest_framework.status import (
     HTTP_400_BAD_REQUEST,
@@ -46,3 +47,7 @@ def validateUser(username, password):
         return Response({'error': 'Please provide both username and password'},
                 status = HTTP_400_BAD_REQUEST)
     return True
+
+def getCoordinates(userstatus):
+    if userstatus:
+        coordinates = GPSCoordinates.objects.filter(userstatus_gps = userstatus).first()
