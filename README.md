@@ -1,6 +1,6 @@
 # Car tracker median
-
-Will allow webasto on/off from mobile app. Webasto has a v-bus line, that can be connected with microcontroller.
+## Brief/Idea
+Allows webasto on/off from mobile app. Webasto has a v-bus line, that can be connected with microcontroller.
 Embedded system with STM32, HM-10(BLE), U-box GNSS, IMU, and NEOWAY M590(SMS, GPRS) will be installed to car.
 Raspberry pi will be in control of Projector(SANYO PLC-WXU700A) in car. Projector can be controller through ethernet.
 
